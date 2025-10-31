@@ -81,4 +81,17 @@ class TodosController extends Controller
         return view('compteur', compact('terminees', 'nonTerminees', 'supprimees'));
     }
 
+    public function search(Request $request){
+        $keyword = $request->input('q');
+
+        $todos = [];
+
+        if ($keyword) {
+            $todos = Todos::where('texte', 'LIKE', "%{$keyword}%")
+                ->get();
+        }
+
+        return view('search', compact('todos', 'keyword'));
+    }
+
 }

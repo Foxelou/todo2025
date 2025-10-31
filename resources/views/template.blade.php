@@ -13,6 +13,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark dark">
             <a class="navbar-brand" href="/">Ma Todo List</a>
             <a class="navbar-brand btn btn-primary" href="liste"><i class="bi bi-app"></i>Liste</a>
+            <a class="navbar-brand btn btn-primary" href="search">Rechercher</a>
 
             <a class="navbar-brand btn btn-danger" href="compteur">Compteur</a>
         </nav>

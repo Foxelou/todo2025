@@ -33,7 +33,7 @@ Route::get('/action/done/{id}', [TodosController::class, 'done'])->name('todo.do
 Route::get('/action/delete/{id}', [TodosController::class, 'delete'])->name('todo.delete');
 
 Route::get('/compteur', [TodosController::class, 'stats'])->name('todo.compteur');
-
+Route::post('/search', [TodosController::class, 'search'])->name('todos.search');
 
 Route::view ('/test', 'template');
 

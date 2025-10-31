@@ -1,5 +1,4 @@
-CREATE DATABASE todo2025;
-CREATE USER 'todo'@'localhost' IDENTIFIED BY 'motdepassefort';
+CREATE DATABASE IF NOT EXISTS todo2025;
 ALTER USER 'todo'@'localhost' IDENTIFIED BY 'todo';
 GRANT ALL PRIVILEGES ON todo2025.* TO 'todo'@'localhost';
 FLUSH PRIVILEGES;
