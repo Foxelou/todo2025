@@ -1,0 +1,8 @@
+
+
+
+Cree un nouveau seeder :
+php artisan make:seeder CategoriesSeeder
+php artisan db:seed --class=CategoriesSeeder
+
+puis rajouter le seeder dans le fichier : database\seeders\DatabaseSeeder.php
