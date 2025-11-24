@@ -16,6 +16,13 @@ return new class extends Migration
             $table->string('texte');
             $table->boolean('termine')->default(0);
             $table->boolean('important')->default(0);
+            $table->dateTime('due_date')->nullable(true);
+
+
+            $table->integer("listes_id")->nullable();
+            $table->foreign("listes_id")->references("id")->on("listes")
+                ->onDelete("cascade");
+
             #Déclaraction de la clé primaire
             $table->primary('id');
             $table->timestamps();

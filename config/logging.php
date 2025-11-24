@@ -52,6 +52,13 @@ return [
 
     'channels' => [
 
+        // canal dédié aux mails
+        'mail' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/mails.log'),
+            'level' => 'debug',
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', (string) env('LOG_STACK', 'single')),

@@ -20,6 +20,14 @@
                 </div>
                 <!-- boites à cocher pour les catégories -->
                 <div class="form-group pt-2">
+                    <select name="liste" id="liste">
+                        <option value=""></option>
+                        @foreach($listes as $liste)
+                            <option value="{{ $liste->id }}">{{ $liste->libelle }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group pt-2">
                     <label>Catégories</label>
                         @foreach($categories as $categorie)
                             <div class="form-check">
@@ -32,6 +40,10 @@
                     Importance : 
                     <input type="radio" name="priority" id="lowpr" value="0" checked><label for="lowpr"><i class="bi bi-reception-1"></i></label>
                     <input type="radio" name="priority" id="highpr" value="1"><label for="highpr"><i class="bi bi-reception-4"></i></label>
+                </div>
+                <div class="priority-choice pt-2">
+                    Date butoire : 
+                    <input type="datetime-local" name="due_date" id="due_date" class="form-control">
                     <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i></button>
                 </div>
             </form>
@@ -46,16 +58,32 @@
                         @elseif ($todo->important == 1)
                             <i class="bi bi-reception-4"></i>
                         @endif
+
                         <!-- Affichage du texte -->
-                        <span>{{ $todo->texte }}</span>
-                            <!-- Affichage de la catégorie -->
-                            <p>Catégories :
-                                <ul>
+                        @if($todo->due_date)
+                            <span>{{ $todo->texte }} - {{ \Carbon\Carbon::parse($todo->due_date)->format('d/m/Y H:i') }}</span>
+                        @else
+                            <span>{{ $todo->texte }}</span>
+                        @endif
+                        <br>
+
+                            @if ($todo->listes)
+                                <label><i class="bi bi-list"></i> Appartient a la liste : {{ $todo->listes->libelle }}</label>
+                                <br>
+                            @endif
+
+                            @if (!empty($todo->categories)&& $todo->categories->count()>0)
+                                <label><i class="bi bi-boxes"></i> Categories :</label>
+                                <div class="form-group">
+                                    <ul>
                                     @foreach($todo->categories as $category)
-                                        <li>{{ $category->libelle }}</li>
+                                        <li>{{$category->libelle}}</li>
                                     @endforeach
-                                </ul>
-                            </p>
+                                    </ul>
+                                </div>
+                                <br>
+                            @endif 
+
                         <!-- Action à ajouter pour Terminer et supprimer -->
                         @if ($todo->termine === 0)
                             <!-- Si un ToDo n'est pas terminé, Action à ajouter pour terminer -->

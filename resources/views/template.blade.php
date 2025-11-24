@@ -12,10 +12,11 @@
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark dark">
             <a class="navbar-brand" href="/">Ma Todo List</a>
-            <a class="navbar-brand btn btn-primary" href="liste"><i class="bi bi-app"></i>Liste</a>
-            <a class="navbar-brand btn btn-primary" href="search">Rechercher</a>
-
-            <a class="navbar-brand btn btn-danger" href="compteur">Compteur</a>
+            <a class="navbar-brand btn btn-primary" href="search"><i class="bi bi-search"></i> Rechercher</a>
+            <a class="navbar-brand btn btn-primary" href="liste"><i class="bi bi-list-check"></i> Liste</a>
+            <a class="navbar-brand btn btn-danger" href="planning"><i class="bi bi-calendar-check"></i> Planning</a>
+            <a class="navbar-brand btn btn-danger" href="compteur"><i class="bi bi-sort-numeric-up"></i> Compteur</a>
+            <a class="navbar-brand btn btn-danger" href="profile"><i class="bi bi-person"></i> Profile Utilisateur</a>
         </nav>
 
         @yield('content')

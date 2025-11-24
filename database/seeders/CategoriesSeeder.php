@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+use App\Models\Todos;
+
 class CategoriesSeeder extends Seeder
 {
     /**
@@ -25,6 +27,15 @@ class CategoriesSeeder extends Seeder
 
         // Insertion des données dans la table 'categories'
         DB::table('categories')->insert($categories);
+
+
+        // Récupérer la todo "Sortir le chien"
+        $todo = Todos::where('texte', 'Sortir le chien')->first();
+
+        if ($todo) {
+            // Attacher la catégories 3 (Sport) à la todo
+            $todo->categories()->attach(3);
+        }
     }
 }
 ?>

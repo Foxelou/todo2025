@@ -5,20 +5,38 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Todos;
 use App\Models\Categories;
+use App\Models\Listes;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Controllers\CategoriesController;
+use App\Models\UsersTodos;
 
 class TodosController extends Controller
 {
     public function liste(){
-        return view("home", ["todos" => Todos::all(), "categories" => Categories::all()]);
+        // return view("home", [
+        //     "todos" => Todos::all(),
+        //     "categories" => Categories::all(),
+        //     "listes" => Listes::all()
+        // ]);
+
+        $user = Auth::user();
+        $todos = $user->todos; // récupérer uniquement les todos de l'utilisateur connecté
+        return view("home", [
+            "todos" => $todos,
+            "categories" => Categories::all(),
+            "listes" => Listes::all()
+        ]);
 
     }
 
     public function saveTodo(Request $request){
         $texte = $request->input('texte');
         $priority = $request->input('priority');
+        $liste = $request->input('liste')?: null;
+        $categories = $request->input('categories');
+        $due_date = $request->input('due_date');
         //dd($request->input('priority')); // fonction de débug
 
         if($texte){
@@ -27,9 +45,20 @@ class TodosController extends Controller
             $todo->texte = $texte;
             $todo->termine = 0;
             $todo->important = $priority;
+            $todo->due_date = $due_date;
+            $todo->listes_id = $liste;
+            
 
             // save() pour mettre a jour et insérer des éléments dans la base
             $todo->save();
+
+            $userId = Auth::id();
+            $todo->users()->attach($userId);
+
+            if (!empty($categories)) {
+                $todo->categories()->attach($categories);
+            }
+            
             // après la modification on retourne sur notre vue "home" qui a comme nom "todo.liste"
             return redirect()->route('todo.liste'); 
         } else{
@@ -92,6 +121,22 @@ class TodosController extends Controller
         }
 
         return view('search', compact('todos', 'keyword'));
+    }
+
+
+    public function planning(){
+        $user = Auth::user();
+        $todos = $user->todos()
+            ->where('termine', 0)        // seulement les todos non terminés
+            ->whereNotNull('due_date')   // avec date butoire
+            ->orderBy('due_date', 'asc') // tri du plus urgent au moins urgent
+            ->get();
+
+
+        //$terminees = $todos::where('termine', 0)->get();
+        //$noDate = $terminees::whereNotNull('due_date')->get();
+
+        return view('planning', compact('todos'));
     }
 
 }

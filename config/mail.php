@@ -49,6 +49,12 @@ return [
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
 
+        // mailer personnalisé pointant vers notre canal
+        'custom_log' => [
+            'transport' => 'log',
+            'channel' => 'mail', // nom du canal défini plus haut
+        ],
+
         'ses' => [
             'transport' => 'ses',
         ],
