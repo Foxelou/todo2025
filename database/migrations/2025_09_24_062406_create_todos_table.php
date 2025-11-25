@@ -18,12 +18,11 @@ return new class extends Migration
             $table->boolean('important')->default(0);
             $table->dateTime('due_date')->nullable(true);
 
+            $table->integer('listes_id')->nullable();
+            $table->foreign('listes_id')->references('id')->on('listes')
+                ->onDelete('cascade');
 
-            $table->integer("listes_id")->nullable();
-            $table->foreign("listes_id")->references("id")->on("listes")
-                ->onDelete("cascade");
-
-            #Déclaraction de la clé primaire
+            // Déclaraction de la clé primaire
             $table->primary('id');
             $table->timestamps();
             /* Utilisation de soft deletes */

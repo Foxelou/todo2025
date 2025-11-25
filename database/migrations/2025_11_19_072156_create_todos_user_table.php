@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('todos_user', function (Blueprint $table) {
             $table->integer('user_id');
             $table->integer('todos_id');
-            #Déclaraction de la clé primaire
-            $table->primary(['user_id','todos_id']);
+            // Déclaraction de la clé primaire
+            $table->primary(['user_id', 'todos_id']);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('todos_id')->references('id')->on('todos');

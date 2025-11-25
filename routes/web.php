@@ -3,11 +3,10 @@
 use App\Http\Controllers\ListesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TodosController;
-//use Illuminate\Foundation\Application;
+// use Illuminate\Foundation\Application;
+use App\Models\Todos;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-
-use App\Models\Todos;
 
 // Route::bind('todos', function ($value) {
 //     return Todos::with('categories')->find($value) ?? abort(404);
@@ -25,7 +24,7 @@ Route::post('/search', [TodosController::class, 'search'])->name('todos.search')
 // Route::view ('/test', 'template');
 
 Route::middleware('auth')->group(function () {
-    //Route::get('/', [TodosController::class, 'liste']);
+    // Route::get('/', [TodosController::class, 'liste']);
     Route::get('/', [TodosController::class, 'liste'])->name('todo.liste');
 
     // Envoie du formulaire via la méthode POST pour l'enregister dans la base de donnée

@@ -1,12 +1,10 @@
 <?php
+
 namespace Database\Seeders;
 
+use App\Models\Todos;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
-
-use App\Models\Todos;
 
 class CategoriesSeeder extends Seeder
 {
@@ -28,7 +26,6 @@ class CategoriesSeeder extends Seeder
         // Insertion des données dans la table 'categories'
         DB::table('categories')->insert($categories);
 
-
         // Récupérer la todo "Sortir le chien"
         $todo = Todos::where('texte', 'Sortir le chien')->first();
 
@@ -38,4 +35,3 @@ class CategoriesSeeder extends Seeder
         }
     }
 }
-?>

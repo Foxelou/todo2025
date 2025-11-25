@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersTodos;
-use Illuminate\Http\Request;
 
 class UsersTodosController extends Controller
 {
@@ -14,6 +13,6 @@ class UsersTodosController extends Controller
      */
     public function listeUsersTodos()
     {
-        return view("home", ["todos_user" => UsersTodos::all()]);
+        return view('home', ['todos_user' => UsersTodos::all()]);
     }
 }
