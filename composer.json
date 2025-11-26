@@ -58,8 +58,11 @@
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "@php artisan test"
-        ]
+            "@php artisan test --coverage --min=80"
+        ],
+        "lint": "vendor/bin/pint --test",
+        "lint:fix": "vendor/bin/pint",
+        "analyse": "vendor/bin/phpstan analyse"
     },
     "extra": {
         "laravel": {

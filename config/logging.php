@@ -59,6 +59,18 @@ return [
             'level' => 'debug',
         ],
 
+        'security' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/security.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
+        'logging' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/logging.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', (string) env('LOG_STACK', 'single')),

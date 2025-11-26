@@ -7,6 +7,7 @@ use App\Models\Listes;
 use App\Models\Todos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class TodosController extends Controller
 {
@@ -31,6 +32,15 @@ class TodosController extends Controller
 
     public function saveTodo(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'texte' => ['required', 'string', 'max:256'],
+        ]);
+
+        if ($validator->fails()) {
+            // return back()->withErrors($validator)->withInput();
+            return redirect()->route('todo.liste')->with('message', $validator->errors()->first());
+        }
+
         $texte = $request->input('texte');
         $priority = $request->input('priority');
         $liste = $request->input('liste') ?: null;

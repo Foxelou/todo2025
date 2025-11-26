@@ -11,6 +11,14 @@
             "sort_algorithm": "alpha"
         },
         "single_quote": true,
-        "no_unused_imports": true
+        "no_unused_imports": true,
+        "blank_line_between_import_groups": true,
+        "blank_lines_before_namespace" : {
+            "min_line_breaks": 2,
+            "max_line_breaks": 2 
+        },
+        "phpdoc_align": true,
+        "phpdoc_order": true,
+        "phpdoc_no_empty_return": false
     }
 }
