@@ -21,11 +21,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+            UserSeeder::class,
             TodosSeeder::class,
             CategoriesSeeder::class,
-            UserSeeder::class,
             ListSeeder::class,
-            UsersTodosSeeder::class,
         ]);
     }
 }

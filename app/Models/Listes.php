@@ -12,6 +12,7 @@ class Listes extends Model
 
     protected $fillable = ['libelle'];
 
+    // Une liste a plusieurs todos
     public function todos(): HasMany
     {
         return $this->hasMany(Todos::class);

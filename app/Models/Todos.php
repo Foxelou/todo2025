@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Todos extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
     protected $fillable = ['texte', 'termine', 'important'];
@@ -26,13 +28,8 @@ class Todos extends Model
         return $this->belongsTo(Listes::class); // ->withDefault();
     }
 
-    public function users(): BelongsToMany
+    public function user(): BelongsTo
     {
-        return $this->belongsToMany(
-            User::class,     // modèle lié
-            'todos_user',    // nom exact de la table pivot
-            'todos_id',      // clé locale (dans todos_user)
-            'user_id'        // clé étrangère (dans todos_user)
-        );
+        return $this->belongsTo(User::class);
     }
 }

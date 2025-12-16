@@ -22,6 +22,9 @@ return new class extends Migration
             $table->foreign('listes_id')->references('id')->on('listes')
                 ->onDelete('cascade');
 
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             // Déclaraction de la clé primaire
             $table->primary('id');
             $table->timestamps();

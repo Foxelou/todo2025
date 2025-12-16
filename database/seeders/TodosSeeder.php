@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,8 @@ class TodosSeeder extends Seeder
      */
     public function run(): void
     {
+        $user = User::first();
+
         $todos = [
             'Faire les courses',
             'Arroser les plantes',
@@ -34,6 +37,7 @@ class TodosSeeder extends Seeder
                 'termine' => rand(0, 1),
                 'important' => rand(0, 1),
                 'due_date' => $due_date ? $due_date->format('Y-m-d H:i:s') : null,
+                'user_id' => $user->id, // Associer toutes les todos à l'utilisateur avec ID 1
             ];
         }
         // $data = [
