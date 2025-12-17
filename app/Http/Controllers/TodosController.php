@@ -32,15 +32,6 @@ class TodosController extends Controller
 
     public function saveTodo(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'texte' => ['required', 'string', 'max:256'],
-        ]);
-
-        if ($validator->fails()) {
-            // return back()->withErrors($validator)->withInput();
-            return redirect()->route('todo.liste')->with('message', $validator->errors()->first());
-        }
-
         $texte = $request->input('texte');
         $priority = $request->input('priority');
         $liste = $request->input('liste') ?: null;
@@ -49,29 +40,38 @@ class TodosController extends Controller
         // dd($request->input('priority')); // fonction de débug
 
         if ($texte) {
-            // création d'un nouvel élément Todos et enregistrement dans la base de donnée
-            $todo = new Todos;
-            $todo->texte = $texte;
-            $todo->termine = 0;
-            $todo->important = $priority;
-            $todo->due_date = $due_date;
-            $todo->listes_id = $liste;
+            $validator = Validator::make($request->all(), [
+                'texte' => ['required', 'string', 'max:256', 'min:3'],
+            ]);
 
-            // save() pour mettre a jour et insérer des éléments dans la base
-            $todo->save();
-
-            $userId = Auth::id();
-            $todo->users()->attach($userId);
-
-            if (! empty($categories)) {
-                $todo->categories()->attach($categories);
+            if ($validator->fails()) {
+                // return back()->withErrors($validator)->withInput();
+                return redirect()->route('todo.liste')->with('message', 'La note doit contenir entre 3 et 256 caractères.'); // $validator->errors()->first()
             }
-
-            // après la modification on retourne sur notre vue "home" qui a comme nom "todo.liste"
-            return redirect()->route('todo.liste');
         } else {
             return redirect()->route('todo.liste')->with('message', 'Veuillez saisir une note à ajouter');
         }
+
+        // création d'un nouvel élément Todos et enregistrement dans la base de donnée
+        $todo = new Todos;
+        $todo->texte = $texte;
+        $todo->termine = 0;
+        $todo->important = $priority;
+        $todo->due_date = $due_date;
+        $todo->listes_id = $liste;
+
+        $userId = Auth::id();
+        $todo->user_id = $userId;
+
+        // save() pour mettre a jour et insérer des éléments dans la base
+        $todo->save();
+
+        if (! empty($categories)) {
+            $todo->categories()->attach($categories);
+        }
+
+        // après la modification on retourne sur notre vue "home" qui a comme nom "todo.liste"
+        return redirect()->route('todo.liste');
 
     }
 
