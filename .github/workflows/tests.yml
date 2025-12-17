@@ -57,8 +57,13 @@ jobs:
       - name: Run migrations
         run: php artisan migrate --force
 
+      # Étape 1 : Les tests DOIVENT passer (Logique de l'app)
+      - name: Run Tests
+        run: php artisan test
+
+      # Étape 2 : Vérification de la couverture (Optionnel / Informatif)
+      # On retire le --min pour ne pas bloquer, ou on le met dans une step "Audit"
       - name: Run tests with coverage
         env:
           XDEBUG_MODE: coverage
-        # run: php artisan test --coverage --min=80 || true
-        run: php artisan test
+        run: php artisan test --coverage --min=80 || true
