@@ -108,7 +108,7 @@ class TodosController extends Controller
     {
         $todo = Todos::find($id);
         if ($todo->termine) {
-            $todo->delete();
+            $todo->forceDelete();
 
             return redirect()->route('todo.liste');
         } else {

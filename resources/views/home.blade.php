@@ -91,7 +91,11 @@
                             <!--<button class="btn btn-primary btn-lg"><span class="fa fa-user"></span><br>Terminer</button>-->
                         @elseif ($todo->termine === 1)
                             <!-- Si un ToDo est terminé, Action à ajouter pour supprimer -->
-                            <a href="{{ route('todo.delete', ['id' => $todo->id]) }}" class="btn btn-danger"><i class="bi bi-trash3"></i></i></a>
+                            <form action="{{ route('todo.delete', ['id' => $todo->id]) }}" method="POST" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
+                            </form>
                             @if (session('validation'))
                                 <p class="alert alert-success">{{ session('validation') }}</p>
                             @endif

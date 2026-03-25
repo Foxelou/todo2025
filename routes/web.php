@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/action/low/{id}', [TodosController::class, 'downImportance'])->name('todo.lower');
 
     Route::get('/action/done/{id}', [TodosController::class, 'done'])->name('todo.done');
-    Route::get('/action/delete/{id}', [TodosController::class, 'delete'])->name('todo.delete');
+    Route::delete('/action/delete/{id}', [TodosController::class, 'delete'])->name('todo.delete');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
