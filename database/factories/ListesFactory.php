@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Listes;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Listes>
+ * @extends Factory<Listes>
  */
 class ListesFactory extends Factory
 {

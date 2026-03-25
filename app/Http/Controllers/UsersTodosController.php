@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersTodos;
+use Illuminate\Http\Response;
 
 class UsersTodosController extends Controller
 {
     /**
      * Affiche la liste des catégories.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function listeUsersTodos()
     {
