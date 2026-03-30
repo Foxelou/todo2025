@@ -24,3 +24,12 @@
 .border-custom-dark {
   border: 1px solid $dark !important;
 }
+
+/* Ajout de transitions fluides pour améliorer l'expérience utilisateur */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.list-group-item {
+    transition: all 0.2s ease;
+}

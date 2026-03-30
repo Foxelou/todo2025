@@ -13,7 +13,8 @@ class Todos extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['texte', 'termine', 'important'];
+    // Champs autorisés pour l'assignation de masse (Mass Assignment)
+    protected $fillable = ['texte', 'termine', 'important', 'user_id'];
 
     // Optionnel mais recommandé si tu veux accéder à deleted_at comme un objet Carbon
     // protected $dates = ['deleted_at'];
