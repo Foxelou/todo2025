@@ -48,10 +48,36 @@
                 </div>
             </form>
 
-            <!-- Liste -->
-            <ul class="list-group">
+            <!-- Liste de tâches avec filtrage réactif via Alpine.js -->
+            <!-- La variable 'filter' est persistée dans le localStorage pour rester active après un rechargement -->
+            <div x-data="{ filter: localStorage.getItem('todo_filter') || 'all' }" 
+                 x-init="$watch('filter', val => localStorage.setItem('todo_filter', val))">
+                <!-- Boutons de filtre : Toutes / En cours / Terminées -->
+                <div class="mb-4 d-flex justify-content-center">
+                    <div class="btn-group" role="group" aria-label="Filtrage des tâches">
+                        <button type="button" class="btn px-4" 
+                                :class="filter === 'all' ? 'btn-primary shadow-sm' : 'btn-outline-primary'"
+                                @click="filter = 'all'">
+                            <i class="bi bi-list-task me-1"></i> Toutes
+                        </button>
+                        <button type="button" class="btn px-4" 
+                                :class="filter === 'active' ? 'btn-primary shadow-sm' : 'btn-outline-primary'"
+                                @click="filter = 'active'">
+                            <i class="bi bi-clock-history me-1"></i> En cours
+                        </button>
+                        <button type="button" class="btn px-4" 
+                                :class="filter === 'completed' ? 'btn-primary shadow-sm' : 'btn-outline-primary'"
+                                @click="filter = 'completed'">
+                            <i class="bi bi-check-all me-1"></i> Terminées
+                        </button>
+                    </div>
+                </div>
+
+                <ul class="list-group">
                 @forelse ($todos as $todo)
-                    <li class="list-group-item">
+                    <!-- Affichage conditionnel de chaque tâche en fonction du filtre actif -->
+                    <li class="list-group-item" 
+                        x-show="filter === 'all' || (filter === 'active' && {{ $todo->termine }} === 0) || (filter === 'completed' && {{ $todo->termine }} === 1)">
                         <!-- Affichage de la priorité -->
                         @if ($todo->important == 0)
                             <i class="bi bi-reception-1"></i>
@@ -111,7 +137,8 @@
                 @empty
                     <li class="list-group-item text-center">C'est vide !</li>
                 @endforelse
-            </ul>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
